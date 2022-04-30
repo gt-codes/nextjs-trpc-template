@@ -1,10 +1,12 @@
 import { trpc } from '@/lib/trpc';
 import type { NextPage } from 'next';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 import styles from '../styles/Home.module.css';
 
 const Home: NextPage = () => {
-	const { data } = trpc.useQuery(['user.getUserById', { id: '1' }]);
+	const { query } = useRouter();
+	const { data } = trpc.useQuery(['user.getUserById', { id: (query.id as string) || '1' }]);
 
 	return (
 		<div className={styles.container}>
